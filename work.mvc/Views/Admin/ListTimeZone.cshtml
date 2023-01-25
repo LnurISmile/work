@@ -1,0 +1,228 @@
+﻿@model TimeZonesListViewModel
+
+@section Css
+{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css">
+}
+
+<div class="row m-2">
+    <h1 class="h3 mt-3"><i class="far fa-calendar-check"></i> Timezones</h1>
+    <hr />
+    <a href="/admin/hr" class="btn btn-outline-dark btn-sm mr-2">Geri</a>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <a href="/admin/create/timezone" class="btn btn-outline-primary btn-sm mb-2"><i class="fas fa-plus-circle"></i></a>
+        <table class="table table-bordered" id="myTable">
+            <thead>
+                <tr>
+                    <td>Time Zone Adı</td>
+                    <td>İş Növü</td>
+                    <td>Off Day</td>
+                    @*<td>Başlama Günü</td>*@
+                    <td>Başlama Saatı</td>
+                    <td>Bitmə Saatı</td>
+                    @*<td>Günlər</td>*@
+                    <td style="width:160px"></td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.TimeZones.Count() > 0)
+                {
+                    @foreach (var b in Model.TimeZones)
+                    {
+                        <tr>
+                            <td>@b.TableName</td>
+                            <td>@b.Type</td>
+                            <td>@b.OffDay</td>
+                            @*<td>@b.StartDate</td>*@
+                            <td>@b.StartTime</td>
+                            <td>@b.EndTime</td>
+                            @*<td>
+                                    @if (b.One == true)
+                                    {
+                                        Model.One = 1;
+                                    }
+                                    ,
+                                    @if (b.Two == true)
+                                    {
+                                        Model.Two = 2;
+                                    }
+                                    ,
+                                    @if (b.Three == true)
+                                    {
+                                        Model.Two = 3;
+                                    }
+                                    ,
+                                    @if (b.Four == true)
+                                    {
+                                        Model.Two = 4;
+                                    }
+                                    ,
+                                    @if (b.Five == true)
+                                    {
+                                        Model.Two = 5;
+                                    }
+                                    ,
+                                    @if (b.Six == true)
+                                    {
+                                        Model.Two = 6;
+                                    }
+                                    ,
+                                    @if (b.Seven == true)
+                                    {
+                                        Model.Two = 7;
+                                    }
+                                    ,
+                                    @if (b.Eight == true)
+                                    {
+                                        Model.Two = 8;
+                                    }
+                                    ,
+                                    @if (b.Nine == true)
+                                    {
+                                        Model.Two = 9;
+                                    }
+                                    ,
+                                    @if (b.Ten == true)
+                                    {
+                                        Model.Two = 10;
+                                    }
+                                    ,
+                                    @if (b.Eleven == true)
+                                    {
+                                        Model.Two = 11;
+                                    }
+                                    ,
+                                    @if (b.Twelve == true)
+                                    {
+                                        Model.Two = 12;
+                                    }
+                                    ,
+                                    @if (b.Thirteen == true)
+                                    {
+                                        Model.Two = 13;
+                                    }
+                                    ,
+                                    @if (b.Fourteen == true)
+                                    {
+                                        Model.Two = 14;
+                                    }
+                                    ,
+                                    @if (b.Fifteen == true)
+                                    {
+                                        Model.Two = 15;
+                                    }
+                                    ,
+                                    @if (b.Sixteen == true)
+                                    {
+                                        Model.Two = 16;
+                                    }
+                                    ,
+                                    @if (b.Seventeen == true)
+                                    {
+                                        Model.Two = 17;
+                                    }
+                                    ,
+                                    @if (b.Eighteen == true)
+                                    {
+                                        Model.Two = 18;
+                                    }
+                                    ,
+                                    @if (b.Nineteen == true)
+                                    {
+                                        Model.Two = 19;
+                                    }
+                                    ,
+                                    @if (b.Twenty == true)
+                                    {
+                                        Model.Two = 20;
+                                    }
+                                    ,
+                                    @if (b.TwentyOne == true)
+                                    {
+                                        Model.Two = 21;
+                                    }
+                                    ,
+                                    @if (b.TwentyTwo == true)
+                                    {
+                                        Model.Two = 22;
+                                    }
+                                    ,
+                                    @if (b.TwentyThree == true)
+                                    {
+                                        Model.Two = 23;
+                                    }
+                                    ,
+                                    @if (b.TwentyFour == true)
+                                    {
+                                        Model.Two = 24;
+                                    }
+                                    ,
+                                    @if (b.TwentyFive == true)
+                                    {
+                                        Model.Two = 25;
+                                    }
+                                    ,
+                                    @if (b.TwentySix == true)
+                                    {
+                                        Model.Two = 26;
+                                    }
+                                    ,
+                                    @if (b.TwentySeven == true)
+                                    {
+                                        Model.Two = 27;
+                                    }
+                                    ,
+                                    @if (b.TwentyEight == true)
+                                    {
+                                        Model.Two = 28;
+                                    }
+                                    ,
+                                    @if (b.TwentyNine == true)
+                                    {
+                                        Model.Two = 29;
+                                    }
+                                    ,
+                                    @if (b.Thirty == true)
+                                    {
+                                        Model.Two = 30;
+                                    }
+                                    ,
+                                    @if (b.ThirtyOne == true)
+                                    {
+                                        Model.Two = 31;
+                                    }
+                                </td>*@
+                            <td>
+                                <a href="/admin/edit/timezone/@b.Id" class="btn btn-outline-secondary btn-sm mr-2">Yenile</a>
+
+                                <form asp-controller="Admin" asp-action="DeleteUsertimezone" method="post" style="display:inline;">
+                                    <input type="hidden" name="Id" value="@b.Id" />
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm mt-1">Sil</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning" role="alert">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Timezone yoxdur</h3>
+                    </div>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="//cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

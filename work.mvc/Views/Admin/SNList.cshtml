@@ -1,0 +1,81 @@
+﻿@model SocialNSLViewModel
+
+@section Css
+{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css">
+}
+
+<div class="row m-2">
+    <h1 class="h3 mt-3"><i class="fas fa-briefcase"></i> Sosial Şəbəkə Siyahısı</h1>
+    <hr />
+    <a href="/admin/hr" class="btn btn-outline-dark btn-sm mr-2">Geri</a>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <table class="table table-bordered" id="myTable">
+            <thead>
+                <tr>
+                    <td>Ad</td>
+                    <td>Key</td>
+                    <td style="width:150px"></td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Snsl.Count() > 0)
+                {
+                    @foreach (var b in Model.Snsl)
+                    {
+                        <tr>
+                            <td>@b.Name</td>
+                            <td>@b.Key</td>
+                            <td>
+                                <form asp-controller="Admin" asp-action="DeleteUsersnsl" method="post" style="display:inline;">
+                                    <input type="hidden" name="Id" value="@b.Id" />
+                                    <button type="submit" class="btn btn-outline-danger btn-sm mt-1">Sil</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning" role="alert">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Məlumat yoxdur</h3>
+                    </div>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <form asp-controller="Admin" asp-action="CreateSNSL" method="post">
+            <div class="form-group row">
+                <label asp-for="Name" class="col-sm-2 col-form-label">Ad</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2 mt-2" asp-for="Name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Key" class="col-sm-2 col-form-label">Key</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2 mt-2" asp-for="Key">
+                    <span asp-validation-for="Key" class="text-danger"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-outline-success mt-2">Yadda Saxla</button>
+        </form>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="//cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

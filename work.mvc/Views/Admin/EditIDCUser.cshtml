@@ -1,0 +1,146 @@
+﻿@model UserDetailsModel
+
+<div class="row m-2">
+    <h1 class="h3 mt-3"><i class="far fa-address-card"></i> Şəxsiyyət Vəsiqəsi Bölməsi</h1>
+    <hr />
+    <a href="/admin/user/edit/@Model.UserId" class="btn btn-outline-dark btn-sm mr-2">Geri</a>
+    @*<form asp-controller="admin" asp-action="edituser" method="post" style="display:inline;">
+        <input type="hidden" name="Id" value="@Model.UserId" />
+        <button type="submit" class="btn btn-outline-dark btn-sm mt-1">Geri</button>
+    </form>*@
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <form asp-controller="Admin" asp-action="EditIDCUser" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="UserId" value="@Model.UserId" />
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label asp-for="UserName">UserName</label>
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email">Email</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FirstName">Ad</label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName">Soyad</label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FatherName">Ata</label>
+                        <input asp-for="FatherName" class="form-control" />
+                        <span asp-validation-for="FatherName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label asp-for="Sex">Cinsiyyət</label>
+                        <select class="form-control" asp-for="Sex">
+                            <option disabled selected>Seçin</option>
+                            <option>Kişi</option>
+                            <option>Qadın</option>
+                            <option>Digər</option>
+                        </select>
+                        <span asp-validation-for="Sex" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label asp-for="BloodGroup">Qan Qrupu</label>
+                        <input asp-for="BloodGroup" class="form-control" />
+                        <span asp-validation-for="BloodGroup" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DoB">Doğum Tarixi</label>
+                        <input asp-for="DoB" class="form-control" />
+                        <span asp-validation-for="DoB" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ARAddress" class="col-sm-2 col-form-label">Faktiki Adres</label>
+                        <input class="form-control mb-2" asp-for="ARAddress" placeholder="Adres">
+                        <span asp-validation-for="ARAddress" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CitizenShip">Vətandaşlıq</label>
+                        <input asp-for="CitizenShip" class="form-control" />
+                        <span asp-validation-for="CitizenShip" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SerialNumber">Seria Nömrəsi</label>
+                        <input asp-for="SerialNumber" class="form-control" />
+                        <span asp-validation-for="SerialNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IdentificationNumber">İdentifikasiya Nömrəsi</label>
+                        <input asp-for="IdentificationNumber" class="form-control" />
+                        <span asp-validation-for="IdentificationNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PeriodOfValidity">Etibarlılıq Müddəti</label>
+                        <input asp-for="PeriodOfValidity" class="form-control" />
+                        <span asp-validation-for="PeriodOfValidity" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <div class="form-check form-switch mt-2">
+                        <input class="form-check-input" type="checkbox" asp-for="EmailConfirmed">
+                        <label class="form-check-label" asp-for="EmailConfirmed">EmailConfirmed</label>
+                    </div>
+                    <div class="form-check form-switch mt-2">
+                        <input class="form-check-input" type="checkbox" asp-for="IsApproved">
+                        <label class="form-check-label" asp-for="IsApproved">Təstiqli</label>
+                    </div>
+                    <hr />
+                    @foreach (var role in ViewBag.Roles)
+                    {
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox"
+                                   class="custom-control-input"
+                                   name="selectedRoles"
+                                   value="@role"
+                                   id="@role"
+                                   @(Model.SelectedRoles.Any(i => i == role) ? "checked" : "") />
+                            <label class="custom-control-label" for="@role">@role</label>
+                        </div>
+                        <hr />
+                    }
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label asp-for="ImgUrl">Foto</label>
+                                <div class="form-group mt-2">
+                                    <input type="hidden" asp-for="ImgUrl" />
+                                    <img src="~/img/@Model.Email/@Model.ImgUrl" width="150" alt="Xəta baş verdi" />
+                                    <input type="file" name="file1" class="form-control mt-2"/>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="PDFUrl">PDF</label>
+                                <div class="form-group mt-2">
+                                    <input type="hidden" asp-for="PDFUrl" />
+                                    <img src="~/img/@Model.Email/@Model.PDFUrl" width="150" alt="Xəta baş verdi" />
+                                    <input type="file" name="file2" class="form-control mt-2"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <button type="submit" class="btn btn-outline-success mt-2">Yadda Saxla</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/js/UserTool.js"></script>
+}

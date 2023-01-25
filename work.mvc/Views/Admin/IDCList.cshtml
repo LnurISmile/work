@@ -1,0 +1,110 @@
+﻿@model UserDetailsModel
+@*IEnumerable<User>*@
+
+@section Css
+{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css">
+}
+<div class="row">
+    <div class="col-md-12">
+        <a href="/admin/users" class="btn btn-outline-warning btn-sm mb-2">Geri</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="h3 mt-3"><i class="far fa-user"></i> İstifadəçilər</h1>
+        <hr />
+        <a href="/admin/idcardlist/unapproved" class="btn btn-outline-primary btn-sm mb-2"><i class="far fa-trash-alt"></i></a>
+        <a href="/admin/user/create" class="btn btn-outline-primary btn-sm mb-2"><i class="fas fa-plus-circle"></i></a>
+        <table class="table table-bordered" id="myTable">
+            <thead>
+                <tr>
+                    <td style="width:150px;">Id</td>
+                    <td>Foto</td>
+                    <td>Ad</td>
+                    <td>Soyad</td>
+                    <td>Email</td>
+                    <td>Stars</td>
+                    <td style="width:160px"></td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Users.Count() > 0)
+                {
+                    @foreach (var b in Model.Users.Where(i=>i.IsApproved).ToList())
+                    {
+                        Model.P = 0;
+                        <tr>
+                            <td>@b.Id</td>
+                            <td><img src="/img/@b.Email/@b.ImgUrl" alt="Xəta baş verdi" width="80" /></td>
+                            <td>@b.FirstName</td>
+                            <td>@b.LastName</td>
+                            <td>@b.Email</td>
+                            @if (Model.College.Where(i => i.UserId == b.Id).Count() > 0)
+                            {
+                                Model.Percent += 100;
+                            }
+                            @if (Model.Uni.Where(i => i.UserId == b.Id).Count() > 0)
+                            {
+                                Model.Percent += 100;
+                            }
+                            @if (Model.Course.Where(i => i.UserId == b.Id).Count() > 0)
+                            {
+                                Model.Percent += 100;
+                            }
+                            @if (Model.WorkEXP.Where(i => i.UserId == b.Id).Count() > 0)
+                            {
+                                Model.Percent += 100;
+                            }
+                            @if (Model.MobilePhone.Where(i => i.UserId == b.Id).Count() > 0)
+                            {
+                                Model.Percent += 100;
+                            }
+                            @if (Model.Emails.Where(i => i.UserId == b.Id).Count() > 0)
+                            {
+                                Model.Percent += 100;
+                            }
+                            @if (Model.Salary.Where(i => i.UserId == b.Id).Count() > 0)
+                            {
+                                Model.Percent += 100;
+                            }
+                            @if (true)
+                            {
+                                Model.P += (Model.Percent + b.PercentID + b.PercentF + b.PercentBD + b.PercentDl + b.PercentS) / 12;
+                            }
+                            <td>
+                                @Model.P
+                            </td>
+                            <td>
+                                <a href="/admin/user/edit/@b.Id" class="btn btn-outline-secondary btn-sm mr-2">Yenile</a>
+                                <a href="/user/details/@b.Id" class="btn btn-outline-secondary btn-sm mr-2">Daha Ətraflı</a>
+
+                                <form asp-controller="Admin" asp-action="UnApprovedUser" method="post" style="display:inline;">
+                                    <input type="hidden" name="Id" value="@b.Id" />
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm mt-1">Təstiqi Sil</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning" role="alert">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Hesab yoxdur</h3>
+                    </div>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="//cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

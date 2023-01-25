@@ -1,0 +1,120 @@
+﻿@model UserDetailsModel
+
+@section Css
+{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css">
+}
+
+<div class="row m-2">
+    <h1 class="h3 mt-3"><i class="fas fa-home"></i> Ailə</h1>
+    <hr />
+    <a href="/admin/user/edit/@Model.UserId" class="btn btn-outline-dark btn-sm mr-2">Geri</a>
+</div>
+
+<form asp-controller="Admin" asp-action="EditFUser" method="post">
+    <div class="row">
+        <div class="col-md-5">
+            <input type="hidden" name="UserId" value="@Model.UserId" />
+            <div class="form-group">
+                <label asp-for="FatherName">Ata</label>
+                <input asp-for="FatherName" class="form-control" />
+                <span asp-validation-for="FatherName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MotherName">Ana</label>
+                <input asp-for="MotherName" class="form-control" />
+                <span asp-validation-for="MotherName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaritalStatus">Ailə Vəziyyəti</label>
+                <input asp-for="MaritalStatus" class="form-control" />
+                <span asp-validation-for="MaritalStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Spouse">Həyat Yoldaşı</label>
+                <input asp-for="Spouse" class="form-control mb-2" />
+                <span asp-validation-for="Spouse" class="text-danger mb-2"></span>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <h2 class="h4">Yeni Uşaq Məlummatı</h2>
+        <div class="col-md-5">
+            <div class="form-group">
+                <label asp-for="fdm.FullName">Ad, Soyad</label>
+                <input asp-for="fdm.FullName" class="form-control" />
+                <span asp-validation-for="fdm.FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fdm.Sex">Cinsiyyət</label>
+                <input asp-for="fdm.Sex" class="form-control" />
+                <span asp-validation-for="fdm.Sex" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fdm.DoB">Doğum Tarixi</label>
+                <input asp-for="fdm.DoB" class="form-control" />
+                <span asp-validation-for="fdm.DoB" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-outline-success mt-2">Əlavə Et və yadda saxla</button>
+</form>
+<hr />
+<div class="row mt-2">
+    <div class="col-md-8">
+        <table class="table table-bordered table-sm" id="myTable">
+            <thead>
+                <tr>
+                    <td>Ad, Soyad</td>
+                    <td>Cinsiyyət</td>
+                    <td>Doğum Tarixi</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Family.Select(i => i.UserId == Model.UserId).Count() > 0)
+                {
+                    @foreach (var b in Model.Family)
+                    {
+                        @if (Model.UserId == b.UserId)
+                        {
+                            <tr>
+                                <td>@b.FullName</td>
+                                <td>@b.Sex</td>
+                                <td>@b.DoB</td>
+                                <td>
+                                    <form asp-controller="Admin" asp-action="DeleteUserF" method="post" style="display:inline;">
+                                        <input type="hidden" name="Id" value="@b.Id" />
+                                        <input type="hidden" name="UserId" value="@Model.UserId" />
+                                        <button type="submit" class="btn btn-outline-danger btn-sm mt-1">Sil</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning" role="alert">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Uşaq Məlumatı Yoxdur</h3>
+                    </div>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/js/UserTool.js"></script>
+    <script src="//cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

@@ -1,0 +1,117 @@
+﻿@model ArchiveDetailsModel
+
+<h2 class="h4"><i class="far fa-file-archive"></i> Arxiv</h2>
+<hr />
+<a href="/user/details/@Model.UserId" class="btn btn-outline-dark btn-sm mr-2">Geri</a>
+<div class="row">
+    <div class="col-md-5">
+        <form asp-controller="Admin" asp-action="CreateArchiveWID" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" name="UserId" value="@Model.UserId" />
+            <div class="form-group row mt-2">
+                <label asp-for="Type" class="col-sm-2 col-form-label">Növ</label>
+                <div class="col-sm-10">
+                    <select class="form-control" asp-for="Type">
+                        <option selected disabled>Seçin</option>
+                        <option value="false">Maaş</option>
+                        <option value="true">Avans</option>
+                    </select>
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label asp-for="Salary" class="col-sm-2 col-form-label">Məbləğ</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="Salary">
+                    <span asp-validation-for="Salary" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Description" class="col-sm-2 col-form-label">Əlavə Məlumat</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="Description">
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="SalaryDate" class="col-sm-2 col-form-label">Tarix</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="SalaryDate">
+                    <span asp-validation-for="SalaryDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-outline-primary">Yadda Saxla</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-7">
+        @foreach (var e in Model.Users)
+        {
+            <h2 class="h4">@e.FirstName @e.LastName</h2>
+        }
+        <hr />
+        <h3>İş Məlumatı</h3>
+        @foreach (var v in Model.Salaries)
+        {
+            @foreach (var c in Model.TimeZones)
+            {
+                if (v.TimeZoneId == c.Id)
+                {
+                    <div>
+                        <h6>Timezone : @c.TableName</h6>
+                        <h6>İş başlama: @c.StartTime</h6>
+                        <h6>İş bitmə : @c.EndTime</h6>
+                        <h6 />
+                        <h6>Tam maaş: @v.Full_Salary</h6>
+                        <h6>Saatlıq maaş: @v.Hourly_Salary</h6>
+                        <h6>İşə başlama tarixi:@v.StartDate</h6>
+                        <h6>İşin bitmə tarixi :@v.EndDate</h6>
+                        <hr />
+                    </div>
+                }
+            }
+        }
+        <h3>Cərimə Məlumatı</h3>
+        @foreach (var r in Model.Penalties)
+        {
+            <div>
+                <h6>Cərimə :@r.PenaltyAmount</h6>
+                <h6>Məlumat :@r.Description</h6>
+                <h6>Bitmə Tarixi :@r.FinishDate</h6>
+                <hr />
+            </div>
+
+        }
+        <h3>Ödəniş Məlumatı</h3>
+        @foreach (var t in Model.Archives)
+        {
+            if ((DateTime.Now - t.SalaryDate).TotalDays <= 38)
+            {
+                <div>
+                    @if (t.Type == false)
+                    {
+                        <h6>Maaş : @t.Salary</h6>
+                    }
+                    else
+                    {
+                        <h6>Avans : @t.Salary</h6>
+                    }
+                    <h6>Tarix :@t.SalaryDate</h6>
+                    <h6>Məlumat:@t.Description</h6>
+                    <hr />
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/js/UserTool.js"></script>
+}

@@ -1,0 +1,93 @@
+﻿@model BodyDDetailsModel
+
+@section Css
+{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css">
+}
+
+<div class="row m-2">
+    <h1 class="h3 mt-3"><i class="fas fa-tshirt"></i> Bədən Ölçüləri</h1>
+    <hr />
+    <a href="/admin/user/edit/@Model.UserId" class="btn btn-outline-dark btn-sm mr-2">Geri</a>
+</div>
+<form asp-controller="Admin" asp-action="EditBDUser" method="post">
+    <div class="row">
+        <div class="col-md-12">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <div class="row">
+                <div class="col-md-8">
+
+                    <div class="form-group mt-2">
+                        <label asp-for="HeadDimension">Baş Ölçüsü</label>
+                        <select class="form-control" asp-for="HeadDimension">
+                            <option selected disabled>Seçin</option>
+                            <option>3XS</option>
+                            <option>2XS</option>
+                            <option>XS</option>
+                            <option>S</option>
+                            <option>M</option>
+                            <option>L</option>
+                            <option>XL</option>
+                            <option>2XL</option>
+                            <option>3XL</option>
+                        </select>
+                        <span asp-validation-for="HeadDimension" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label asp-for="BodyDimensionUp">Üst Bədən Ölçüsü</label>
+                        <select class="form-control" asp-for="BodyDimensionUp">
+                            <option selected disabled>Seçin</option>
+                            <option>4XS</option>
+                            <option>3XS</option>
+                            <option>2XS</option>
+                            <option>XS</option>
+                            <option>S</option>
+                            <option>M</option>
+                            <option>L</option>
+                            <option>XL</option>
+                            <option>2XL</option>
+                            <option>3XL</option>
+                            <option>4XL</option>
+                        </select>
+                        <span asp-validation-for="BodyDimensionUp" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label asp-for="BodyDimensionDown">Alt Bədən Ölçüsü</label>
+                        <select class="form-control" asp-for="BodyDimensionDown">
+                            <option selected disabled>Seçin</option>
+                            <option>4XS</option>
+                            <option>3XS</option>
+                            <option>2XS</option>
+                            <option>XS</option>
+                            <option>S</option>
+                            <option>M</option>
+                            <option>L</option>
+                            <option>XL</option>
+                            <option>2XL</option>
+                            <option>3XL</option>
+                            <option>4XL</option>
+                        </select>
+                        <span asp-validation-for="BodyDimensionDown" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label asp-for="FootSize">Ayaq Ölçüsü</label>
+                        <input asp-for="FootSize" class="form-control" />
+                        <span asp-validation-for="FootSize" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Height">Boy</label>
+                        <input asp-for="Height" class="form-control mb-2" />
+                        <span asp-validation-for="Height" class="text-danger mb-2"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Weight">Çəki</label>
+                        <input asp-for="Weight" class="form-control mb-2" />
+                        <span asp-validation-for="Weight" class="text-danger mb-2"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-outline-success mt-2">Yadda Saxla</button>
+</form>

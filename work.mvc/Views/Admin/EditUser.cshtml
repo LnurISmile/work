@@ -1,0 +1,38 @@
+﻿@model UserDetailsModel
+
+<div class="row m-2">
+    <h3 class="h4 mt-3"><i class="fas fa-user-edit"></i> Tənzimləmə Bölmələri</h3>
+    <hr />
+    @foreach (var e in Model.Users)
+    {
+        if (e.Id == Model.UserId)
+        {
+            <h3 class="h4 mt-3"><img src="/img/@e.Email/@e.ImgUrl" style="width:100px;" alt="Şəkil yüklənmədi" /> @e.FirstName @e.LastName @e.FatherName</h3>
+            <span>
+                <a href="/admin/create/archive/@Model.UserId" class="btn btn-outline-primary btn-sm mb-2"><i class="far fa-file-archive"></i> Manual Ödəniş Məlumatı Əlavə Et</a>
+                <a href="/admin/create/penalty/@Model.UserId" class="btn btn-outline-primary btn-sm mb-2"><i class="fas fa-ban"></i> Cərimələ</a>
+                <a href="/admin/create/bonus/@Model.UserId" class="btn btn-outline-primary btn-sm mb-2"><i class="fas fa-hand-holding-usd"></i> Bonus Ver</a>
+                <form asp-controller="Admin" asp-action="ForgotPassword" method="post" style="display:inline;">
+                    <input type="hidden" name="Id" value="@Model.UserId" />
+                    <button type="submit" class="btn btn-outline-success btn-sm mb-2"><i class="fas fa-unlock-alt"></i> Şifrə Yenilə</button>
+                </form>
+            </span>
+            <form asp-controller="Admin" asp-action="AutoArchive" method="post" style="display:inline;">
+                <input type="hidden" name="id" value="@Model.UserId" />
+                <button type="submit" class="btn btn-outline-secondary btn-sm mt-1"><i class="far fa-file-archive"></i> Auto Maaş</button>
+            </form>
+        }
+    }
+    <input type="hidden" name="Id" value="@Model.UserId" />
+    <hr class="mt-2" />
+    <span>
+        <a href="/admin/user/idcedit/@Model.UserId" class="btn btn-outline-primary btn-sm mb-2"><i class="far fa-id-card"></i> Şəxsiyyə V. Bölməsi</a>
+        <a href="/admin/user/familyedit/@Model.UserId" class="btn btn-outline-primary btn-sm mb-2"><i class="fas fa-home"></i> Ailə Bölməsi</a>
+        <a href="/admin/user/bodydedit/@Model.UserId" class="btn btn-outline-primary btn-sm mb-2"><i class="fas fa-user-alt"></i> Bədən Ölçüləri</a>
+        <a href="/admin/user/studyeditlist/@Model.UserId" class="btn btn-outline-primary btn-sm mb-2"><i class="fas fa-user-graduate"></i> Təhsil Bölməsi</a>
+        <a href="/admin/user/workexpedit/@Model.UserId" class="btn btn-outline-primary btn-sm mb-2"><i class="fas fa-briefcase"></i> İş Təcrübəsi</a>
+        <a href="/admin/user/drivingledit/@Model.UserId" class="btn btn-outline-primary btn-sm mb-2"><i class="fas fa-car"></i> Sürücülük Bölməsi</a>
+        <a href="/admin/user/contactedit/@Model.UserId" class="btn btn-outline-primary btn-sm mb-2"><i class="far fa-address-book"></i> Əlaqə Bölməsi</a>
+        <a href="/admin/user/salaryedit/@Model.UserId" class="btn btn-outline-primary btn-sm mb-2"><i class="fas fa-file-invoice-dollar"></i> Maaş Bölməsi</a>
+    </span>
+</div>

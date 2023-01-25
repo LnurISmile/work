@@ -1,0 +1,76 @@
+﻿@model UniDetailsModel
+
+@section Css
+{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css">
+}
+
+<div class="row m-2">
+    <h1 class="h3 mt-3"><i class="fas fa-user-graduate"></i> Universitet Bölməsi</h1>
+    <hr />
+    <a href="/admin/university/list/@Model.UserId" class="btn btn-outline-dark btn-sm mr-2">Geri</a>
+</div>
+<form asp-controller="Admin" asp-action="EditUniUser" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-12">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group mt-2">
+                        <label asp-for="UniversityLevel">Dərəcə</label>
+                        <select class="form-control" asp-for="UniversityLevel">
+                            <option selected disabled>Seçin</option>
+                            <option>Bakalavr</option>
+                            <option>Magistratura</option>
+                            <option>Doktorantura</option>
+                        </select>
+                        <span asp-validation-for="UniversityLevel" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label asp-for="UniversityName">Universitet</label>
+                        <input asp-for="UniversityName" class="form-control" />
+                        <span asp-validation-for="UniversityName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label asp-for="UniversitySpecialty">İxtisas</label>
+                        <input asp-for="UniversitySpecialty" class="form-control" />
+                        <span asp-validation-for="UniversitySpecialty" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Uni_StartDate">Başlama</label>
+                        <input asp-for="Uni_StartDate" class="form-control" />
+                        <span asp-validation-for="Uni_StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Uni_CompletionDate">Bitirmə</label>
+                        <input asp-for="Uni_CompletionDate" class="form-control" />
+                        <span asp-validation-for="Uni_CompletionDate" class="text-danger"></span>
+                    </div>
+                    @foreach (var e in Model.Users)
+                    {
+                        @if (e.Id == Model.UserId)
+                        {
+                            <div class="mb-3">
+                                <label asp-for="ImgUrl">Foto</label>
+                                <div class="form-group mt-2">
+                                    <input type="hidden" asp-for="ImgUrl" />
+                                    <img src="~/img/@e.Email/@Model.ImgUrl" width="150" alt="Xəta baş verdi" />
+                                    <input type="file" name="file1" class="form-control mt-2" />
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="PDFUrl">PDF</label>
+                                <div class="form-group mt-2">
+                                    <input type="hidden" asp-for="PDFUrl" />
+                                    <img src="~/img/@e.Email/@Model.PDFUrl" width="150" alt="Xəta baş verdi" />
+                                    <input type="file" name="file2" class="form-control mt-2" />
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-outline-success mt-2">Yadda Saxla</button>
+</form>

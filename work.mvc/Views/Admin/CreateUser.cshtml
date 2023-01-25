@@ -1,0 +1,91 @@
+﻿@model RegisterModel
+
+    <div class="row m-2">
+        <h2 class="h4"><i class="far fa-user"></i> Register User</h2>
+        <hr />
+        <a href="/admin/hr" class="btn btn-outline-dark btn-sm mr-2">Geri</a>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-controller="Admin" asp-action="CreateUser" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group row">
+                    <label asp-for="FirstName" class="col-sm-2 col-form-label">Ad</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control mb-2" asp-for="FirstName" placeholder="İstifadəçi adı">
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="LastName" class="col-sm-2 col-form-label">Soyad</label>
+                    <div class="col-sm-10">
+                        <input class="form-control mb-2" asp-for="LastName" placeholder="İstifadəçi soyadı">
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Email" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                        <input class="form-control mb-2" asp-for="Email">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="UserName" class="col-sm-2 col-form-label">Email təkrarı</label>
+                    <div class="col-sm-10">
+                        <input class="form-control mb-2" asp-for="UserName">
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Password" class="col-sm-2 col-form-label">Şifrə</label>
+                    <div class="col-sm-10">
+                        <input class="form-control mb-2" asp-for="Password" placeholder="Minimum 1 böyük hərf , 1 kiçik hərf, 1 işarə və 6 simvoldan az olmamalıdır">
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="RePassword" class="col-sm-2 col-form-label">Şifrə təkrarı</label>
+                    <div class="col-sm-10">
+                        <input class="form-control mb-2" asp-for="RePassword">
+                        <span asp-validation-for="RePassword" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-10 offset-sm-2">
+                        <button type="submit" class="btn btn-outline-primary">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4 mt-3">
+            <div class="form-check form-switch mt-2">
+                <input class="form-check-input" checked type="checkbox" asp-for="IsApproved">
+                <label class="form-check-label" asp-for="IsApproved">Təstiqli</label>
+            </div>
+            <div class="form-check form-switch mt-2">
+                <input class="form-check-input" checked type="checkbox" asp-for="EmailConfirmed">
+                <label class="form-check-label" asp-for="EmailConfirmed">Email Təstiqi</label>
+            </div>
+            <hr />
+            @foreach (var role in ViewBag.Roles)
+            {
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox"
+                           class="custom-control-input"
+                           name="selectedRoles"
+                           value="@role"
+                           id="@role" />
+                    <label class="custom-control-label" for="@role">@role</label>
+                </div>
+            }
+        </div>
+    </div>
+
+    @section Scripts
+{
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+        <script src="~/js/UserTool.js"></script>
+    }

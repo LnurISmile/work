@@ -1,0 +1,200 @@
+﻿@model WorkerDetailModel
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <h2 class="h4">Təhsil Haqqında</h2>
+        <span>
+            <img style="width:200px;" src="~/img/@Model.User.Email/@Model.User.ImgUrl" class="img-fluid" alt="Yüklənmədi" />
+            <h5 class="card-text">@Model.User.FirstName @Model.User.LastName</h5>
+        </span>
+    </div>
+    @if (Model.School != null)
+    {
+        <hr />
+        <div class="row">
+            <div class="col-md-6 mt-2">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="h5 card-text">Məktəb  : @Model.School.SchoolName</p>
+                        <p class="h5 card-text">Başlama : @Model.School.School_StartDate</p>
+                        <p class="h5 card-text">Bitirmə : @Model.School.School_CompletionDate</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mt-2">
+                <div>
+                    <img style="width:300px;" src="~/img/@Model.User.Email/@Model.School.ImgUrl" class="img-fluid" alt="Yüklənmədi" />
+                    <form asp-controller="Admin" asp-action="DownloadFile" method="post">
+                        <input type="hidden" name="filePath" value="@Model.School.ImgUrl" />
+                        <input type="hidden" name="Email" value="@Model.User.Email" />
+                        <button type="submit" class="m-1">Şəkli Endir</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-3 mt-2">
+                <div>
+                    <img style="width:300px;" src="~/img/@Model.User.Email/@Model.School.PDFUrl" class="img-fluid" alt="Yüklənmədi" />
+                    <form asp-controller="Admin" asp-action="DownloadFile" method="post">
+                        <input type="hidden" name="filePath" value="@Model.School.PDFUrl" />
+                        <input type="hidden" name="Email" value="@Model.User.Email" />
+                        <button type="submit" class="m-1">PDF-i Endir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <hr />
+        <div class="row">
+            <div class="col-md-6 mt-2">
+                <p class="h4 card-text">Hər hansı məktəb məlumat yoxdur</p>
+            </div>
+        </div>
+    }
+
+    @if (Model.CollegeList.Count() != 0)
+    {
+        @foreach (var item in Model.CollegeList)
+        {
+            <hr />
+            <div class="row">
+                <div class="col-md-6 mt-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="h5 card-text">Kollec   : @item.CollegeName</p>
+                            <p class="h5 card-text">Başlama  : @item.College_StartDate</p>
+                            <p class="h5 card-text">Bitirmə  : @item.College_CompletionDate</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mt-2">
+                    <div>
+                        <img style="width:300px;" src="~/img/@Model.User.Email/@item.ImgUrl" class="img-fluid" alt="Yüklənmədi" />
+                        <form asp-controller="Admin" asp-action="DownloadFile" method="post">
+                            <input type="hidden" name="filePath" value="@item.ImgUrl" />
+                            <input type="hidden" name="Email" value="@Model.User.Email" />
+                            <button type="submit" class="m-1">Şəkli Endir</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-3 mt-2">
+                    <div>
+                        <img style="width:300px;" src="~/img/@Model.User.Email/@item.PDFUrl" class="img-fluid" alt="Yüklənmədi" />
+                        <form asp-controller="Admin" asp-action="DownloadFile" method="post">
+                            <input type="hidden" name="filePath" value="@item.PDFUrl" />
+                            <input type="hidden" name="Email" value="@Model.User.Email" />
+                            <button type="submit" class="m-1">PDF-i Endir</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <hr />
+        <div class="row">
+            <div class="col-md-6 mt-2">
+                <p class="h4 card-text">Hər hansı kollec məlumat yoxdur</p>
+            </div>
+        </div>
+    }
+    @if (Model.UniversityList.Count() != 0)
+    {
+        @foreach (var item in Model.UniversityList)
+        {
+            <hr />
+            <div class="row">
+                <div class="col-md-6 mt-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="h5 card-text">Dərəcə     : @item.UniversityLevel</p>
+                            <p class="h5 card-text">Universitet: @item.UniversityName</p>
+                            <p class="h5 card-text">Başlama    : @item.Uni_StartDate</p>
+                            <p class="h5 card-text">Bitirmə    : @item.Uni_CompletionDate</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mt-2">
+                    <div>
+                        <img style="width:300px;" src="~/img/@Model.User.Email/@item.ImgUrl" class="img-fluid" alt="Yüklənmədi" />
+                        <form asp-controller="Admin" asp-action="DownloadFile" method="post">
+                            <input type="hidden" name="filePath" value="@item.ImgUrl" />
+                            <input type="hidden" name="Email" value="@Model.User.Email" />
+                            <button type="submit" class="m-1">Şəkli Endir</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-3 mt-2">
+                    <div>
+                        <img style="width:300px;" src="~/img/@Model.User.Email/@item.PDFUrl" class="img-fluid" alt="Yüklənmədi" />
+                        <form asp-controller="Admin" asp-action="DownloadFile" method="post">
+                            <input type="hidden" name="filePath" value="@item.PDFUrl" />
+                            <input type="hidden" name="Email" value="@Model.User.Email" />
+                            <button type="submit" class="m-1">PDF-i Endir</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <hr />
+        <div class="row">
+            <div class="col-md-6 mt-2">
+                <p class="h4 card-text">Hər hansı universitet məlumat yoxdur</p>
+            </div>
+        </div>
+    }
+
+    @if (Model.CourseList.Count() != 0)
+    {
+        @foreach (var item in Model.CourseList)
+        {
+            <hr />
+            <div class="row">
+                <div class="col-md-6 mt-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="h5 card-text">Kurs     : @item.CourseName</p>
+                            <p class="h5 card-text">Mövzu    : @item.CourseOnWhat</p>
+                            <p class="h5 card-text">Başlama  : @item.Course_StartDate</p>
+                            <p class="h5 card-text">Bitirmə  : @item.Course_UCompletionDate</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mt-2">
+                    <div>
+                        <img style="width:300px;" src="~/img/@Model.User.Email/@item.ImgUrl" class="img-fluid" alt="Yüklənmədi" />
+                        <form asp-controller="Admin" asp-action="DownloadFile" method="post">
+                            <input type="hidden" name="filePath" value="@item.ImgUrl" />
+                            <input type="hidden" name="Email" value="@Model.User.Email" />
+                            <button type="submit" class="m-1">Şəkli Endir</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-3 mt-2">
+                    <div>
+                        <img style="width:300px;" src="~/img/@Model.User.Email/@item.PDFUrl" class="img-fluid" alt="Yüklənmədi" />
+                        <form asp-controller="Admin" asp-action="DownloadFile" method="post">
+                            <input type="hidden" name="filePath" value="@item.PDFUrl" />
+                            <input type="hidden" name="Email" value="@Model.User.Email" />
+                            <button type="submit" class="m-1">PDF-i Endir</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <hr />
+        <div class="row">
+            <div class="col-md-6 mt-2">
+                <p class="h4 card-text">Hər hansı kurs məlumat yoxdur</p>
+            </div>
+        </div>
+    }
+</div>

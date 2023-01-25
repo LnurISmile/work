@@ -1,0 +1,46 @@
+﻿@model IEnumerable<IdentityRole>
+
+
+    <div class="row m-2">
+        <h1 class="h3 mt-3"><i class="fas fa-user-tag"></i> Yeni Rol</h1>
+        <hr />
+        <a href="/admin/hr" class="btn btn-outline-dark btn-sm mr-2">Geri</a>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <a href="/admin/role/create" class="btn btn-outline-primary btn-sm mb-2"><i class="fas fa-plus-circle"></i></a>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td>Rol Adı</td>
+                        <td style="width:180px"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Count() > 0)
+                    {
+                        @foreach (var b in Model)
+                        {
+                            <tr>
+                                <td>@b.Name</td>
+                                <td>
+                                    <a href="/admin/role/edit/@b.Id" class="btn btn-outline-warning btn-sm mr-2">Yenile</a>
+
+                                    <form asp-controller="Admin" asp-action="DeleteRole" method="post" style="display:inline;">
+                                        <input type="hidden" name="Id" value="@b.Id" />
+                                        <button type="submit" class="btn btn-outline-danger btn-sm ">Sil</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning" role="alert">
+                            <h3><i class="fas fa-exclamation-triangle"></i> Rol yoxdur</h3>
+                        </div>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>

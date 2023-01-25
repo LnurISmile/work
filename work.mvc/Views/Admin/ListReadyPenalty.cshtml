@@ -1,0 +1,79 @@
+﻿@model ReadyPenaltyListViewModel
+
+@section Css
+{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css">
+}
+
+<div class="row m-2">
+    <h1 class="h3 mt-3"><i class="fas fa-ban"></i> Hazır Cərimələr</h1>
+    <hr />
+    <a href="/admin/hr" class="btn btn-outline-dark btn-sm mr-2">Geri</a>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form action="/admin/create/penaltyready" method="post">
+            <div class="form-group row">
+                <label asp-for="PenaltyName" class="col-sm-2 col-form-label">Cərimə</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2 mt-2" asp-for="PenaltyName">
+                    <span asp-validation-for="PenaltyName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="PenaltyAmount" class="col-sm-2 col-form-label">Məbləğ</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="PenaltyAmount">
+                    <span asp-validation-for="PenaltyAmount" class="text-danger"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-outline-primary">Yadda Saxla</button>
+        </form>
+    </div>
+    <div class="col-md-8">
+        <table class="table table-bordered" id="myTable">
+            <thead>
+                <tr>
+                    <td>Cərimə</td>
+                    <td>Məbləğ</td>
+                    <td style="width:100px"></td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.PenaltyReadies.Count() > 0)
+                {
+                    @foreach (var b in Model.PenaltyReadies)
+                    {
+                        <tr>
+                            <td>@b.PenaltyName</td>
+                            <td>@b.PenaltyAmount</td>
+                            <td>
+                                <form asp-controller="Admin" asp-action="DeleteUserpenaltyready" method="post" style="display:inline;">
+                                    <input type="hidden" name="Id" value="@b.Id" />
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm mt-1">Sil</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning" role="alert">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Hazır Cərimə Yoxdur</h3>
+                    </div>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="//cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

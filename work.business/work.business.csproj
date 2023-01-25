@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+
+	<ItemGroup>
+	  <Folder Include="Abstract\" />
+	  <Folder Include="Concrete\" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <ProjectReference Include="..\work.data\work.data.csproj" />
+	  <ProjectReference Include="..\work.entity\work.entity.csproj" />
+	</ItemGroup>
+	
+</Project>

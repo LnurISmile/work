@@ -1,0 +1,115 @@
+﻿@model ContactListViewModel
+
+@section Css
+{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css">
+}
+<div class="row">
+    <div class="col-md-12">
+        <a href="/admin/users" class="btn btn-outline-warning btn-sm mb-2">Geri</a>
+        <h1 class="h3 mt-3"><i class="far fa-user"></i> Əlaqə Bölməsi</h1>
+        <hr />
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="h4 mt-3"><i class="fas fa-phone-square-alt"></i> Nömrələr</h2>
+        <hr />
+        <table class="table table-bordered" id="myTable1">
+            <thead>
+                <tr>
+                    <td>Ad</td>
+                    <td>Nömrə</td>
+                    <td style="width:150px"></td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.MobilePhones.Count() > 0)
+                {
+                    @foreach (var b in Model.Users)
+                    {
+                        @foreach (var f in Model.MobilePhones)
+                        {
+                            @if (f.UserId == b.Id)
+                            {
+                                <tr>
+                                    <td>@b.FirstName @b.LastName</td>
+                                    <td>@f.MobileNumber</td>
+                                    <td>
+                                        <a href="/admin/user/edit/@b.Id" class="btn btn-outline-secondary btn-sm mr-2">Yenile</a>
+                                        <a href="/user/details/@b.Id" class="btn btn-outline-secondary btn-sm mr-2">Daha Ətraflı</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning" role="alert">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Məlumat yoxdur</h3>
+                    </div>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="h4 mt-3"><i class="fas fa-envelope"></i> Email</h2>
+        <hr />
+        <table class="table table-bordered" id="myTable2">
+            <thead>
+                <tr>
+                    <td>Ad</td>
+                    <td>Email</td>
+                    <td style="width:150px"></td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Emails.Count() > 0)
+                {
+                    @foreach (var b in Model.Users)
+                    {
+                        @foreach (var f in Model.Emails)
+                        {
+                            @if (f.UserId == b.Id)
+                            {
+                                <tr>
+                                    <td>@b.FirstName @b.LastName</td>
+                                    <td>@f.Emails</td>
+                                    <td>
+                                        <a href="/admin/user/edit/@b.Id" class="btn btn-outline-secondary btn-sm mr-2">Yenile</a>
+                                        <a href="/user/details/@b.Id" class="btn btn-outline-secondary btn-sm mr-2">Daha Ətraflı</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning" role="alert">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Məlumat yoxdur</h3>
+                    </div>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="//cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable1').DataTable();
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable2').DataTable();
+        });
+    </script>
+}

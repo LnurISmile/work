@@ -1,0 +1,18 @@
+﻿@model RoleModel
+
+<div class="row m-2">
+    <h1 class="h3 mt-3"><i class="fas fa-user-tag"></i> Yeni Rol</h1>
+    <hr />
+    <form action="/admin/CreateRole" method="post">
+        <div class="row">
+            <div class="col-md-5 mt-2">
+                <div class="form-group">
+                    <label asp-for="Name">Rol adı</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-outline-success mt-3">Submit</button>
+    </form>
+</div> 

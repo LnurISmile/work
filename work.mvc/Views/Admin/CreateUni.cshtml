@@ -1,0 +1,94 @@
+﻿@model UniDetailsModel
+
+<h2 class="h4"><i class="fas fa-user-graduate"></i> Universitet Siyahısı</h2>
+<hr />
+<a href="/admin/list/university" class="btn btn-outline-dark btn-sm mr-2">Geri</a>
+<div class="row">
+    <div class="col-md-8">
+        <form asp-controller="Admin" asp-action="CreateUni" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group row">
+                <label asp-for="UserId" class="col-sm-2 col-form-label">User</label>
+                <div class="col-sm-10">
+                    <select class="form-control" asp-for="UserId">
+                        <option selected disabled>Seçin</option>
+                        @foreach (var item in Model.Users)
+                        {
+                            <option value="@item.Id">@item.FirstName @item.LastName @item.FatherName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label asp-for="UniversityLevel" class="col-sm-2 col-form-label">Dərəcə</label>
+                <div class="col-sm-10">
+                    <select class="form-control" asp-for="UniversityLevel">
+                        <option selected disabled>Seçin</option>
+                        <option>Bakalavr</option>
+                        <option>Magistratura</option>
+                        <option>Doktorantura</option>
+                    </select>
+                    <span asp-validation-for="UniversityLevel" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label asp-for="UniversityName" class="col-sm-2 col-form-label">Universitet</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="UniversityName">
+                    <span asp-validation-for="UniversityName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="UniversitySpecialty" class="col-sm-2 col-form-label">İxtisas</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2 mt-2" asp-for="UniversitySpecialty">
+                    <span asp-validation-for="UniversitySpecialty" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Uni_StartDate" class="col-sm-2 col-form-label">Başlama</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="Uni_StartDate">
+                    <span asp-validation-for="Uni_StartDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Uni_CompletionDate" class="col-sm-2 col-form-label">Bitirmə</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="Uni_CompletionDate">
+                    <span asp-validation-for="Uni_CompletionDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ImgUrl">Foto</label>
+                <div class="form-group mt-2">
+                    <input type="hidden" asp-for="ImgUrl" />
+                    <input type="file" name="file1" class="form-control mt-2" />
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="PDFUrl">PDF</label>
+                <div class="form-group mt-2">
+                    <input type="hidden" asp-for="PDFUrl" />
+                    <input type="file" name="file2" class="form-control mt-2" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-outline-primary">Yadda Saxla</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/js/UserTool.js"></script>
+}

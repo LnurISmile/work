@@ -1,0 +1,43 @@
+﻿@model WorkerDetailModel
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <h2 class="h4">Şəxsiyyət Vəsiqəsi</h2>
+        <span>
+            <img style="width:200px;" src="~/img/@Model.User.Email/@Model.User.ImgUrl" class="img-fluid" alt="Yüklənmədi" />
+            <form asp-controller="Admin" asp-action="DownloadFile" method="post">
+                <input type="hidden" name="filePath" value="@Model.User.ImgUrl" />
+                <input type="hidden" name="Email" value="@Model.User.Email" />
+                <button type="submit" class="m-1">Şəkli Endir</button>
+            </form>
+            <img style="width:200px;" src="~/img/@Model.User.Email/@Model.User.PDFUrl" class="img-fluid" alt="Yüklənmədi" />
+            <form asp-controller="Admin" asp-action="DownloadFile" method="post">
+                <input type="hidden" name="filePath" value="@Model.User.PDFUrl" />
+                <input type="hidden" name="Email" value="@Model.User.Email" />
+                <button type="submit" class="m-1">PDF-i Endir</button>
+            </form>
+        </span>
+    </div>
+    <div class="col-md-4 mt-2">
+        <div class="card">
+            <div class="card-body">
+                <p class="h5 card-text">Şəxs : @Model.User.FirstName @Model.User.LastName</p>
+                <p class="h5 card-text">Ata : @Model.User.FatherName @Model.User.LastName</p>
+                <p class="h5 card-text">Cinsiyyət : @Model.User.Sex</p>
+                <p class="h5 card-text">Doğum Tarixi : @Model.User.DoB</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5 mt-2">
+        <div class="card">
+            <div class="card-body">
+                <p class="h5 card-text">Ş.V. Seriya : @Model.User.SerialNumber</p>
+                <p class="h5 card-text">FIN : @Model.User.IdentificationNumber</p>
+                <p class="h5 card-text">Etibarlılıq : @Model.User.PeriodOfValidity</p>
+                <p class="h5 card-text">Qan Qrupu : @Model.User.BloodGroup</p>
+                <p class="h5 card-text">Faktiki Adres : @Model.User.ARAddress</p>
+                <p class="h5 card-text">Evlilik Statusu : @Model.User.MaritalStatus</p>
+            </div>
+        </div>
+    </div>
+</div>

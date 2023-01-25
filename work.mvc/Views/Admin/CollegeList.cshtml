@@ -1,0 +1,77 @@
+﻿@model CollegeListViewModel
+
+@section Css
+{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css">
+}
+<div class="row">
+    <div class="col-md-12">
+        <a href="/admin/list/study" class="btn btn-outline-warning btn-sm mb-2">Geri</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="h3 mt-3"><i class="fas fa-university"></i> Kollec Siyahısı</h1>
+        <hr />
+        <a href="/admin/college/create" class="btn btn-outline-primary btn-sm mb-2"><i class="fas fa-plus-circle"></i></a>
+        <table class="table table-bordered" id="myTable">
+            <thead>
+                <tr>
+                    <td>Ad</td>
+                    <td>Kollec</td>
+                    <td>İxtisas</td>
+                    <td>Başlama</td>
+                    <td>Bitirmə</td>
+                    <td style="width:150px"></td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Colleges.Count() > 0)
+                {
+                    @foreach (var b in Model.Users)
+                    {
+                        @foreach (var f in Model.Colleges)
+                        {
+                            @if (f.UserId == b.Id)
+                            {
+                                <tr>
+                                    <td>@b.FirstName @b.LastName</td>
+                                    <td>@f.CollegeName</td>
+                                    <td>@f.CollegeSpecialty</td>
+                                    <td>@f.College_StartDate</td>
+                                    <td>@f.College_CompletionDate</td>
+                                    <td>
+                                        <a href="/admin/user/edit/@b.Id" class="btn btn-outline-secondary btn-sm mr-2">Yenile</a>
+                                        <a href="/user/details/@b.Id" class="btn btn-outline-secondary btn-sm mr-2">Daha Ətraflı</a>
+
+                                        <form asp-controller="Admin" asp-action="DeleteUsercol" method="post" style="display:inline;">
+                                            <input type="hidden" name="Id" value="@f.Id" />
+                                            <button type="submit" class="btn btn-outline-danger btn-sm mt-1">Sil</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning" role="alert">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Məlumat yoxdur</h3>
+                    </div>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="//cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

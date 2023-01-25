@@ -1,0 +1,73 @@
+﻿@model WorkerDetailModel
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <h2 class="h4">İş Haqqında</h2>
+        <span>
+            <img style="width:200px;" src="~/img/@Model.User.Email/@Model.User.ImgUrl" class="img-fluid" alt="Yüklənmədi" />
+            <h5 class="card-text">@Model.User.FirstName @Model.User.LastName</h5>
+        </span>
+    </div>
+    @if (Model.WorkList.Count() != 0)
+    {
+        @foreach (var item in Model.WorkList)
+        {
+            <hr />
+            <div class="row">
+                <div class="col-md-6 mt-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="h5 card-text">Şirkət      : @item.Company</p>
+                            <p class="h5 card-text">HR          : @item.Employer</p>
+                            <p class="h5 card-text">Başlama     : @item.Start</p>
+                            <p class="h5 card-text">İşdən Çıxma : @item.Resignation</p>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+                <div class="col-md-3 mt-2">
+                    <div>
+                        <img style="width:300px;" src="~/img/@Model.User.Email/@item.CVPDF" class="img-fluid" alt="Yüklənmədi" />
+                        <form asp-controller="Admin" asp-action="DownloadFile" method="post">
+                            <input type="hidden" name="filePath" value="@item.CVPDF" />
+                            <input type="hidden" name="Email" value="@Model.User.Email" />
+                            <button type="submit" class="m-1">PDF-i Endir</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <hr />
+        <div class="row">
+            <div class="col-md-6 mt-2">
+                <p class="h4 card-text">Hər hansı iş təcrübəsi məlumat yoxdur</p>
+            </div>
+        </div>
+        <hr />
+    }
+    <h3 class="h5">Əlavə Bacarıqlar</h3>
+    @if (Model.OSkillsList.Count() != 0)
+    {
+        @foreach (var item in Model.OSkillsList)
+        {
+            <div class="row">
+                <div class="col-md-5 mt-2">
+                    <p class="h5 card-text">@item.Skill</p>
+                    <hr />
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <hr />
+        <div class="row">
+            <div class="col-md-6 mt-2">
+                <p class="h4 card-text">Hər hansı bacarıq məlumat yoxdur</p>
+            </div>
+        </div>
+    }
+</div>

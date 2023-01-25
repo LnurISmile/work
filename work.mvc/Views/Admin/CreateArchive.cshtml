@@ -1,0 +1,71 @@
+﻿@model ArchiveDetailsModel
+
+<h2 class="h4"><i class="far fa-file-archive"></i> Arxiv</h2>
+<hr />
+<a href="/admin/archives" class="btn btn-outline-dark btn-sm mr-2">Geri</a>
+<div class="row">
+    <div class="col-md-8">
+        <form asp-controller="Admin" asp-action="CreateArchive" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group row">
+                <label asp-for="UserId" class="col-sm-2 col-form-label">User</label>
+                <div class="col-sm-10">
+                    <select class="form-control" asp-for="UserId">
+                        <option selected disabled>Seçin</option>
+                        @foreach (var item in Model.Users)
+                        {
+                            <option value="@item.Id">@item.FirstName @item.LastName @item.FatherName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label asp-for="Type" class="col-sm-2 col-form-label">Növ</label>
+                <div class="col-sm-10">
+                    <select class="form-control" asp-for="Type">
+                        <option selected disabled>Seçin</option>
+                        <option value="false">Maaş</option>
+                        <option value="true">Avans</option>
+                    </select>
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label asp-for="Salary" class="col-sm-2 col-form-label">Məbləğ</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="Salary">
+                    <span asp-validation-for="Salary" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Description" class="col-sm-2 col-form-label">Əlavə Məlumat</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="Description">
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="SalaryDate" class="col-sm-2 col-form-label">Tarix</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="SalaryDate">
+                    <span asp-validation-for="SalaryDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-outline-primary">Yadda Saxla</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/js/UserTool.js"></script>
+}

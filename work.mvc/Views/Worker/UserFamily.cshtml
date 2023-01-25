@@ -1,0 +1,42 @@
+﻿@model WorkerDetailModel
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <h2 class="h4">Ailə Haqqında</h2>
+        <span>
+            <img style="width:200px;" src="~/img/@Model.User.Email/@Model.User.ImgUrl" class="img-fluid" alt="Yüklənmədi" />
+            <p class="h5 card-text">@Model.User.FirstName @Model.User.LastName</p>
+        </span>
+    </div>
+    <div class="col-md-4 mt-2">
+        <div class="card">
+            <div class="card-body">
+                <p class="h5 card-text">Ata            : @Model.User.FatherName @Model.User.LastName</p>
+                <p class="h5 card-text">ANa            : @Model.User.MotherName</p>
+                <p class="h5 card-text">Ailə Vəziyyəti : @Model.User.MaritalStatus</p>
+                <p class="h5 card-text">Həyat Yoldaşı  : @Model.User.Spouse</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5 mt-2">
+        <div class="card">
+            <div class="card-body">
+                <p class="h4 card-text">Uşaqlar</p>
+                @if (Model.ChildrenList.Count() != 0)
+                {
+                    @foreach (var item in Model.ChildrenList)
+                    {
+                        <hr />
+                        <p class="h5 card-text">Ad           : @item.FullName</p>
+                        <p class="h5 card-text">Cinsiyyət    : @item.Sex</p>
+                        <p class="h5 card-text">Doğum Tarixi : @item.DoB</p>
+                    }
+                }
+                else
+                {
+                    <h2 class="h4">Uşaq haqqında məlumat yoxdur</h2>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,210 @@
+﻿@model TimeZonesDetailsModel
+
+@section Css
+{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css">
+}
+
+<div class="row m-2">
+    <h1 class="h3 mt-3"><i class="far fa-calendar-check"></i> Timezones tənzimləmə</h1>
+    <hr />
+    <a href="/admin/timezones" class="btn btn-outline-dark btn-sm mr-2">Geri</a>
+</div>
+<form asp-controller="Admin" asp-action="EditTimezone" method="post">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group row">
+                <label asp-for="TableName" class="col-sm-2 col-form-label">Timezone Adı</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2 mt-2" asp-for="TableName">
+                    <span asp-validation-for="TableName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Type" class="col-sm-2 col-form-label">İş Növü</label>
+                <div class="col-sm-10">
+                    <select class="form-control" asp-for="Type">
+                        <option disabled selected>Seçin</option>
+                        <option>Manual Həftə</option>
+                        <option>Manual Ay</option>
+                        <option>Neçə Gündən Bir</option>
+                    </select>
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label asp-for="OffDay" class="col-sm-2 col-form-label">Off Day</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="OffDay">
+                    <span asp-validation-for="OffDay" class="text-danger"></span>
+                </div>
+            </div>
+            @*<div class="form-group row mt-2">
+                <label asp-for="StartDate" class="col-sm-2 col-form-label">Başlama Günü</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="StartDate">
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+            </div>*@
+            <div class="form-group row">
+                <label asp-for="StartTime" class="col-sm-2 col-form-label">Başlama Saatı</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="StartTime">
+                    <span asp-validation-for="StartTime" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="EndTime" class="col-sm-2 col-form-label">Bitmə Saatı</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="EndTime">
+                    <span asp-validation-for="EndTime" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-outline-primary">Yadda Saxla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-1">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="One">
+                <label class="form-check-label" asp-for="One">1</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Seven">
+                <label class="form-check-label" asp-for="Seven">7</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Thirteen">
+                <label class="form-check-label" asp-for="Thirteen">13</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Nineteen">
+                <label class="form-check-label" asp-for="Nineteen">19</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="TwentyFive">
+                <label class="form-check-label" asp-for="TwentyFive">25</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="ThirtyOne">
+                <label class="form-check-label" asp-for="ThirtyOne">31</label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Two">
+                <label class="form-check-label" asp-for="Two">2</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Eight">
+                <label class="form-check-label" asp-for="Eight">8</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Fourteen">
+                <label class="form-check-label" asp-for="Fourteen">14</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Twenty">
+                <label class="form-check-label" asp-for="Twenty">20</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="TwentySix">
+                <label class="form-check-label" asp-for="TwentySix">26</label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Three">
+                <label class="form-check-label" asp-for="Three">3</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Nine">
+                <label class="form-check-label" asp-for="Nine">9</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Fifteen">
+                <label class="form-check-label" asp-for="Fifteen">15</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="TwentyOne">
+                <label class="form-check-label" asp-for="TwentyOne">21</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="TwentySeven">
+                <label class="form-check-label" asp-for="TwentySeven">27</label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Four">
+                <label class="form-check-label" asp-for="Four">4</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Ten">
+                <label class="form-check-label" asp-for="Ten">10</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Sixteen">
+                <label class="form-check-label" asp-for="Sixteen">16</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="TwentyTwo">
+                <label class="form-check-label" asp-for="TwentyTwo">22</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="TwentyEight">
+                <label class="form-check-label" asp-for="TwentyEight">28</label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Five">
+                <label class="form-check-label" asp-for="Five">5</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Eleven">
+                <label class="form-check-label" asp-for="Eleven">11</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Seventeen">
+                <label class="form-check-label" asp-for="Seventeen">17</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="TwentyThree">
+                <label class="form-check-label" asp-for="TwentyThree">23</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="TwentyNine">
+                <label class="form-check-label" asp-for="TwentyNine">29</label>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Six">
+                <label class="form-check-label" asp-for="Six">6</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Twelve">
+                <label class="form-check-label" asp-for="Twelve">12</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Eighteen">
+                <label class="form-check-label" asp-for="Eighteen">18</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="TwentyFour">
+                <label class="form-check-label" asp-for="TwentyFour">24</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" asp-for="Thirty">
+                <label class="form-check-label" asp-for="Thirty">30</label>
+            </div>
+        </div>
+    </div>
+</form>

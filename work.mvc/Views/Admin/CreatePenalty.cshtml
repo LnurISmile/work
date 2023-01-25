@@ -1,0 +1,106 @@
+﻿@model PenaltyDetailsModel
+
+<h2 class="h4"><i class="fas fa-ban"></i> Cərimə</h2>
+<hr />
+<a href="/admin/penalties" class="btn btn-outline-dark btn-sm mr-2">Geri</a>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <select class="form-control">
+            <option selected disabled>Seçin</option>
+            <option>Hazır Cərimələr</option>
+            <option>Manual Cərimə</option>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <form asp-controller="Admin" asp-action="CreatePenalty" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group row">
+                <label asp-for="UserId" class="col-sm-2 col-form-label">User</label>
+                <div class="col-sm-10">
+                    <select class="form-control" asp-for="UserId">
+                        <option selected disabled>Seçin</option>
+                        @foreach (var item in Model.Users)
+                        {
+                            <option value="@item.Id">@item.FirstName @item.LastName @item.FatherName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="PenaltyAmount" class="col-sm-2 col-form-label">Məbləğ</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2 mt-2" asp-for="PenaltyAmount">
+                    <span asp-validation-for="PenaltyAmount" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Description" class="col-sm-2 col-form-label">Əlavə Məlumat</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="Description">
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="FinishDate" class="col-sm-2 col-form-label">Bitirmə</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="FinishDate">
+                    <span asp-validation-for="FinishDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-outline-primary">Yadda Saxla</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <form asp-controller="Admin" asp-action="CreatePenaltyR" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group row mb-2">
+                <label asp-for="UserId" class="col-sm-2 col-form-label">User</label>
+                <div class="col-sm-10">
+                    <select class="form-control" asp-for="UserId">
+                        <option selected disabled>Seçin</option>
+                        @foreach (var item in Model.Users)
+                        {
+                            <option value="@item.Id">@item.FirstName @item.LastName @item.FatherName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mb-2">
+                <label asp-for="PenaltyId" class="col-sm-2 col-form-label">Cərimə</label>
+                <div class="col-sm-10">
+                    <select class="form-control" asp-for="PenaltyId">
+                        <option selected disabled>Seçin</option>
+                        @foreach (var item in Model.PenaltyReadies)
+                        {
+                            <option value="@item.Id" name="Id">@item.PenaltyName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="PenaltyId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-outline-primary">Yadda Saxla</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/js/UserTool.js"></script>
+}

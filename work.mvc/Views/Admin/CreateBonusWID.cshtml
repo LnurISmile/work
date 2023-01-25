@@ -1,0 +1,99 @@
+﻿@model BonusDetailsModel
+
+<h2 class="h4"><i class="fas fa-hand-holding-usd"></i> Bonus</h2>
+<hr />
+<a href="/user/details/@Model.UserId" class="btn btn-outline-dark btn-sm mr-2">Geri</a>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <select class="form-control">
+            <option selected disabled>Seçin</option>
+            <option>Hazır Bonuslar</option>
+            <option>Manual Bonus</option>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <form asp-controller="Admin" asp-action="CreateBonusWID" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" name="UserId" value="@Model.UserId" />
+            <div class="form-group row mt-2">
+                <label class="col-sm-2 col-form-label">Ödəniş Növü</label>
+                <div class="col-sm-10">
+                    <select class="form-control">
+                        <option disabled selected>Seçin</option>
+                        <option>Məbləğ</option>
+                        <option>Faiz</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label asp-for="BonusAmount" class="col-sm-2 col-form-label">Məbləğ</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2 mt-2" asp-for="BonusAmount">
+                    <span asp-validation-for="BonusAmount" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="BonusPercent" class="col-sm-2 col-form-label">Faiz</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2 mt-2" asp-for="BonusPercent">
+                    <span asp-validation-for="BonusPercent" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Description" class="col-sm-2 col-form-label">Əlavə Məlumat</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="Description">
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="FinishDate" class="col-sm-2 col-form-label">Tarix</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="FinishDate">
+                    <span asp-validation-for="FinishDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-outline-primary">Yadda Saxla</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <form asp-controller="Admin" asp-action="CreateBonusRWID" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" name="UserId" value="@Model.UserId" />
+            <div class="form-group row mb-2">
+                <label asp-for="BonusId" class="col-sm-2 col-form-label">Bonus</label>
+                <div class="col-sm-10">
+                    <select class="form-control" asp-for="BonusId">
+                        <option selected disabled>Seçin</option>
+                        @foreach (var item in Model.BonusReadies)
+                        {
+                            <option value="@item.Id" name="Id">@item.BonusName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="BonusId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-outline-primary">Yadda Saxla</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/js/UserTool.js"></script>
+}

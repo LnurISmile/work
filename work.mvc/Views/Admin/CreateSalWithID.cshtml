@@ -1,0 +1,67 @@
+﻿@model SalaryWIDDetailsModel
+
+<h2 class="h4"><i class="fas fa-file-invoice-dollar"></i> Maaş Bölməsi</h2>
+<hr />
+<a href="/admin/list/salary" class="btn btn-outline-dark btn-sm mr-2">Geri</a>
+<div class="row">
+    <div class="col-md-8">
+        <form asp-controller="Admin" asp-action="CreateSalWithID" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" name="UserId" value="@Model.UserId" />
+            <div class="form-group row">
+                <label asp-for="TimeZoneId" class="col-sm-2 col-form-label">Timezone</label>
+                <div class="col-sm-10">
+                    <select class="form-control" asp-for="TimeZoneId">
+                        <option selected disabled>Seçin</option>
+                        @foreach (var item in Model.TimeZones)
+                        {
+                            <option value="@item.Id">@item.TableName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="TimeZoneId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label asp-for="Full_Salary" class="col-sm-2 col-form-label">Aylıq Maaş</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="Full_Salary">
+                    <span asp-validation-for="Full_Salary" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Hourly_Salary" class="col-sm-2 col-form-label">Saatlıq Maaş</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="Hourly_Salary">
+                    <span asp-validation-for="Hourly_Salary" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="StartDate" class="col-sm-2 col-form-label">Başlama Tarixi</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="StartDate">
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="EndDate" class="col-sm-2 col-form-label">Bitmə Tarixi</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="EndDate">
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-outline-primary">Yadda Saxla</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/js/UserTool.js"></script>
+}

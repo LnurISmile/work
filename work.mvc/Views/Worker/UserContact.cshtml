@@ -1,0 +1,95 @@
+﻿@model WorkerDetailModel
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <h2 class="h4">Əlaqə Məlumatları</h2>
+        <span>
+            <img style="width:200px;" src="~/img/@Model.User.Email/@Model.User.ImgUrl" class="img-fluid" alt="Yüklənmədi" />
+            <h5 class="card-text">@Model.User.FirstName @Model.User.LastName</h5>
+        </span>
+    </div>
+    <div class="row">
+        @if (Model.MPhoneList.Count() != 0)
+        {
+            <hr />
+            @foreach (var item in Model.MPhoneList)
+            {
+                <div class="col-md-6 mt-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="h5 card-text">@item.MobileNumber</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <hr />
+            <div class="row">
+                <div class="col-md-6 mt-2">
+                    <p class="h4 card-text">Hər hansı nömrə məlumatı yoxdur</p>
+                </div>
+            </div>
+        }
+
+        @if (Model.EmailList.Count() != 0)
+        {
+            @foreach (var item in Model.EmailList)
+            {
+                <hr />
+                <div class="row">
+                    <div class="col-md-6 mt-2">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="h5 card-text">@item.Emails</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <hr />
+            <div class="row">
+                <div class="col-md-6 mt-2">
+                    <p class="h4 card-text">Hər hansı email məlumatı yoxdur</p>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row">
+        @if (Model.SocialNList.Count() != 0)
+        {
+            @foreach (var item in Model.SocialNList)
+            {
+                <hr />
+                <div class="col-md-6 mt-2">
+                    <div class="card">
+                        <div class="card-body">
+                            @foreach (var e in Model.SNSLList)
+                            {
+                                if (item.SocialNetworkName == e.Name)
+                                {
+                                    <p class="h5 card-text" href="@item.Link">@e.Key</p>
+                                }
+                                else
+                                {
+                                    <p class="h5 card-text" href="@item.Link">@e.Name</p>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <hr />
+            <div class="col-md-6 mt-2">
+                <p class="h4 card-text">Hər hansı sosial şəbəkə məlumatı yoxdur</p>
+            </div>
+        }
+    </div>
+</div>

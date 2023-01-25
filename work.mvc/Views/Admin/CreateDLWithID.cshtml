@@ -1,0 +1,76 @@
+﻿@model DrivingLWIDDetailsModel
+
+<h2 class="h4"><i class="fas fa-car"></i> Sürücülük Vəsiqəsi</h2>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-controller="Admin" asp-action="CreateDLWithID" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" name="UserId" value="@Model.UserId" />
+            <div class="form-group row">
+                <label asp-for="IssuingAuthority" class="col-sm-2 col-form-label">Verən Orqan</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2 mt-2" asp-for="IssuingAuthority">
+                    <span asp-validation-for="IssuingAuthority" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="DL_SerialNumber" class="col-sm-2 col-form-label">Seria Nömrəsi</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="DL_SerialNumber">
+                    <span asp-validation-for="DL_SerialNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Categories" class="col-sm-2 col-form-label">Kateqoriya</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="Categories">
+                    <span asp-validation-for="Categories" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="StartDate" class="col-sm-2 col-form-label">Verilmə Tarixi</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="StartDate">
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="ExpirationDate" class="col-sm-2 col-form-label">Bitmə Tarixi</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2" asp-for="ExpirationDate">
+                    <span asp-validation-for="ExpirationDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ImgUrl">Foto</label>
+                <div class="form-group mt-2">
+                    <input type="hidden" asp-for="ImgUrl" />
+                    <input type="file" name="file1" class="form-control mt-2" />
+                </div>
+            </div>
+            <div class="mb-3">
+                <label asp-for="PDFUrl">PDF</label>
+                <div class="form-group mt-2">
+                    <input type="hidden" asp-for="PDFUrl" />
+                    <input type="file" name="file2" class="form-control mt-2" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-outline-primary">Yadda Saxla</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/js/UserTool.js"></script>
+}

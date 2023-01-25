@@ -1,0 +1,133 @@
+﻿@model WorkDetailsModel
+
+@section Css
+{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css">
+}
+
+<div class="row m-2">
+    <h1 class="h3 mt-3"><i class="fas fa-briefcase"></i> İş Təcrübəsi</h1>
+    <hr />
+    <a href="/admin/user/edit/@Model.UserId" class="btn btn-outline-dark btn-sm mr-2">Geri</a>
+</div>
+<form asp-controller="Admin" asp-action="EditWEUser" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-12">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <div class="row">
+                <div class="col-md-8">
+
+                    <div class="form-group">
+                        <label asp-for="Company">Şirkət</label>
+                        <input asp-for="Company" class="form-control" />
+                        <span asp-validation-for="Company" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Employer">HR</label>
+                        <input asp-for="Employer" class="form-control" />
+                        <span asp-validation-for="Employer" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Start">İşə Başlama Tarixi</label>
+                        <input asp-for="Start" class="form-control" />
+                        <span asp-validation-for="Start" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Resignation">İşdən Ayrılma Tarixi</label>
+                        <input asp-for="Resignation" class="form-control mb-2" />
+                        <span asp-validation-for="Resignation" class="text-danger mb-2"></span>
+                    </div>
+                    @foreach (var e in Model.Users)
+                    {
+                        @if (e.Id == Model.UserId)
+                        {
+                            <div class="mb-3">
+                                <label asp-for="CVPDF">CV PDF</label>
+                                <div class="form-group mt-2">
+                                    <input type="hidden" asp-for="CVPDF" />
+                                    <img src="~/img/@e.Email/@Model.CVPDF" width="150" alt="Xəta baş verdi" />
+                                    <input type="file" name="file" class="form-control mt-2" />
+                                </div>
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-outline-success mt-2">Yadda Saxla</button>
+</form>
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <h1 class="h3 mt-3"><i class="fas fa-briefcase"></i> Əlavə Bacarıqlar</h1>
+        <hr />
+        <a href="/admin/otherskills/create" class="btn btn-outline-primary btn-sm mb-2">Yeni Məlumat</a>
+        <table class="table table-bordered" id="myTable">
+            <thead>
+                <tr>
+                    <td>Ad</td>
+                    <td>Əlavə Bacarıq</td>
+                    <td style="width:150px"></td>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.OSkills.Count() > 0)
+                {
+                    @foreach (var b in Model.Users)
+                    {
+                        @foreach (var f in Model.OSkills)
+                        {
+                            @if (f.UserId == b.Id)
+                            {
+                                <tr>
+                                    <td>@b.FirstName @b.LastName</td>
+                                    <td>@f.Skill</td>
+                                    <td>
+                                        <form asp-controller="Admin" asp-action="DeleteUseros" method="post" style="display:inline;">
+                                            <input type="hidden" name="Id" value="@f.Id" />
+                                            <button type="submit" class="btn btn-outline-danger btn-sm mt-1">Sil</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning" role="alert">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Məlumat yoxdur</h3>
+                    </div>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <form asp-controller="Admin" asp-action="CreateOtherSkills" method="post">
+            <input type="hidden" name="UserId" value="@Model.UserId" />
+            <div class="form-group row">
+                <label asp-for="os.Skill" class="col-sm-2 col-form-label">Bacarıq</label>
+                <div class="col-sm-10">
+                    <input class="form-control mb-2 mt-2" asp-for="os.Skill">
+                    <span asp-validation-for="os.Skill" class="text-danger"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-outline-success mt-2">Yadda Saxla</button>
+        </form>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="//cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

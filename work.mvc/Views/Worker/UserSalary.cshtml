@@ -1,0 +1,209 @@
+﻿@model WorkerDetailModel
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <h2 class="h4">Maaş Haqqında</h2>
+        <span>
+            <img style="width:200px;" src="~/img/@Model.User.Email/@Model.User.ImgUrl" class="img-fluid" alt="Yüklənmədi" />
+            <p class="h5 card-text">@Model.User.FirstName @Model.User.LastName</p>
+        </span>
+    </div>
+    <div class="col-md-5 mt-2">
+        @if (Model.SalaryList.Count != 0)
+        {
+            <hr />
+            @foreach (var item in Model.SalaryList)
+            {
+                <p class="h5 card-text">Tam maaş       : @item.Full_Salary</p>
+                <p class="h5 card-text">Saatlıq maaş   : @item.Hourly_Salary</p>
+                <p class="h5 card-text">Başlama Tarixi : @item.StartDate</p>
+                <p class="h5 card-text">Bitmə Tarixi   : @item.EndDate</p>
+                <hr />
+                <p class="h5 card-text">Timezone      : @Model.TimeZone.TableName</p>
+                <p class="h5 card-text">İşləmə növü   : @Model.TimeZone.Type</p>
+                <p class="h5 card-text">Off Day       : @Model.TimeZone.OffDay</p>
+                @*<p class="h5 card-text">Timezone Başlama tarixi : @Model.TimeZone.StartDate</p>*@
+                <p class="h5 card-text">Başlama saatı : @Model.TimeZone.StartTime</p>
+                <p class="h5 card-text">Bitmə saatı   : @Model.TimeZone.EndTime</p>
+
+                double r = Math.Floor((DateTime.Now - item.StartDate).TotalDays / (Model.TimeZone.OffDay + 1) /*+ 1*/);
+                double w = r * (Model.TimeZone.OffDay + 1);
+                DateTime f = item.StartDate.AddDays(w);
+                List<int> abc1 = new List<int>();
+
+                for (int i = f.Day; i <= DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month) + DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month + 1); i = i + (Model.TimeZone.OffDay + 1))
+                {
+                    if (i <= DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month))
+                    {
+                        abc1.Add(i);
+                    }
+                    else if (i > DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month))
+                    {
+                        int b = i - DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+                        abc1.Add(b);
+                    }
+                }
+
+
+                if (abc1.Count != 0)
+                {
+                    <hr />
+                    <div class="row mt-4 ">
+                        @foreach (var v in abc1)
+                        {
+                            <label class="form-check-label">@v</label>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <hr />
+                    <div class="row mt-4">
+                        <div class="col-md-2">
+                            <div class="form-check form-switch ">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.One">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.One">1</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Seven">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Seven">7</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Thirteen">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Thirteen">13</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Nineteen">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Nineteen">19</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.TwentyFive">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.TwentyFive">25</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.ThirtyOne">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.ThirtyOne">31</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Two">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Two">2</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Eight">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Eight">8</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Fourteen">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Fourteen">14</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Twenty">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Twenty">20</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.TwentySix">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.TwentySix">26</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Three">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Three">3</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Nine">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Nine">9</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Fifteen">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Fifteen">15</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.TwentyOne">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.TwentyOne">21</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.TwentySeven">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.TwentySeven">27</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Four">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Four">4</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Ten">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Ten">10</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Sixteen">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Sixteen">16</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.TwentyTwo">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.TwentyTwo">22</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.TwentyEight">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.TwentyEight">28</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Five">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Five">5</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Eleven">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Eleven">11</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Seventeen">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Seventeen">17</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.TwentyThree">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.TwentyThree">23</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.TwentyNine">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.TwentyNine">29</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Six">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Six">6</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Twelve">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Twelve">12</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Eighteen">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Eighteen">18</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.TwentyFour">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.TwentyFour">24</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" asp-for="@Model.TimeZone.Thirty">
+                                <label class="form-check-label" asp-for="@Model.TimeZone.Thirty">30</label>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+            }
+        }
+        else
+        {
+            <h2 class="h4">Maaş Haqqında məlumat yoxdur</h2>
+        }
+    </div>
+</div>
